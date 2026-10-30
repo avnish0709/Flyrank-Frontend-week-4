@@ -1,0 +1,19 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Forward /api/* requests to Netlify functions if not handled by v2 config
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Single Page Application (SPA) fallback to index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
